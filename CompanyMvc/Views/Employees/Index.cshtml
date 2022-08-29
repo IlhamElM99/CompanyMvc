@@ -1,0 +1,94 @@
+﻿@model CompanyMvc.Models.EmployeeCityViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Employees" asp-action="Index" method="get">
+    <p>
+         <select asp-for="EmployeeCity" asp-items="Model.Cities">
+            <option value="">All</option>
+        </select>
+
+        Name: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].EmployeeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].CurrentAdress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].PermanentAdress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].Nationality)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].PINCode)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Employees[0].Position)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Employees) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentAdress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PermanentAdress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nationality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PINCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EmployeeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
