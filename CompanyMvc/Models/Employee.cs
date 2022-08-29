@@ -39,5 +39,10 @@ namespace CompanyMvc.Models
         
         public string Position { get; set; }
 
+        public int IdDemandeDeCongé { get; set; }
+
+        public DemandeDeCongé DemandeDeCongé { get; set; }
+
+        public int SoldeDeCongé { get; set; }
     }
 }
