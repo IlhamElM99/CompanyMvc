@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CompanyMvc.Migrations
 {
     [DbContext(typeof(CompanyMvcContext))]
-    [Migration("20220829200339_DemandeDeCongé")]
-    partial class DemandeDeCongé
+    [Migration("20220831125404_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,24 @@ namespace CompanyMvc.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CompanyMvc.Models.Admin", b =>
+                {
+                    b.Property<int>("IdAdmin")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdAdmin");
+
+                    b.ToTable("Admin");
+                });
 
             modelBuilder.Entity("CompanyMvc.Models.DemandeDeCongé", b =>
                 {
@@ -37,6 +55,9 @@ namespace CompanyMvc.Migrations
                     b.Property<DateTime>("DateRetour")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("NombreJours")
                         .HasColumnType("int");
 
@@ -46,7 +67,14 @@ namespace CompanyMvc.Migrations
                     b.Property<string>("TypeDeCongé")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ValidateurIdAdmin")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ValidateurIdAdmin");
 
                     b.ToTable("DemandeDeCongé");
                 });
@@ -71,9 +99,6 @@ namespace CompanyMvc.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DemandeDeCongéId")
-                        .HasColumnType("int");
-
                     b.Property<string>("EmployeeName")
                         .IsRequired()
                         .HasMaxLength(60)
@@ -83,9 +108,6 @@ namespace CompanyMvc.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<int>("IdDemandeDeCongé")
-                        .HasColumnType("int");
 
                     b.Property<string>("Nationality")
                         .IsRequired()
@@ -110,23 +132,32 @@ namespace CompanyMvc.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex("DemandeDeCongéId");
-
                     b.ToTable("Employee");
-                });
-
-            modelBuilder.Entity("CompanyMvc.Models.Employee", b =>
-                {
-                    b.HasOne("CompanyMvc.Models.DemandeDeCongé", "DemandeDeCongé")
-                        .WithMany("Employees")
-                        .HasForeignKey("DemandeDeCongéId");
-
-                    b.Navigation("DemandeDeCongé");
                 });
 
             modelBuilder.Entity("CompanyMvc.Models.DemandeDeCongé", b =>
                 {
-                    b.Navigation("Employees");
+                    b.HasOne("CompanyMvc.Models.Employee", "Employee")
+                        .WithMany("DemandesDeconge")
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("CompanyMvc.Models.Admin", "Validateur")
+                        .WithMany("DemandesDeCongé")
+                        .HasForeignKey("ValidateurIdAdmin");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Validateur");
+                });
+
+            modelBuilder.Entity("CompanyMvc.Models.Admin", b =>
+                {
+                    b.Navigation("DemandesDeCongé");
+                });
+
+            modelBuilder.Entity("CompanyMvc.Models.Employee", b =>
+                {
+                    b.Navigation("DemandesDeconge");
                 });
 #pragma warning restore 612, 618
         }

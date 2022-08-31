@@ -10,5 +10,6 @@ namespace CompanyMvc.Data
         }
 
         public DbSet<CompanyMvc.Models.Employee> Employee { get; set; }
+        public DbSet<CompanyMvc.Models.Admin> Admin { get; set; }
     }
 }

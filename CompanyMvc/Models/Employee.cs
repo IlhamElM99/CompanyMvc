@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,10 +40,8 @@ namespace CompanyMvc.Models
         
         public string Position { get; set; }
 
-        public int IdDemandeDeCongé { get; set; }
-
-        public DemandeDeCongé DemandeDeCongé { get; set; }
-
         public int SoldeDeCongé { get; set; }
+
+        public List<DemandeDeCongé> DemandesDeconge { get; set; }
     }
 }

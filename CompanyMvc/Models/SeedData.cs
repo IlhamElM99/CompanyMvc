@@ -31,7 +31,8 @@ namespace CompanyMvc.Models
                         CurrentAdress = "Current Address",
                         PermanentAdress = "Permanent Address",
                         PINCode = "560078",
-                        Position = "RH"
+                        Position = "RH",
+                        SoldeDeCongé = 18
                     },
                     new Employee
                     {
@@ -43,7 +44,8 @@ namespace CompanyMvc.Models
                         CurrentAdress = "Current Address",
                         PermanentAdress = "Permanent Address",
                         PINCode = "620068",
-                        Position = "CEO"
+                        Position = "CEO",
+                        SoldeDeCongé = 20
                     },
                     new Employee
                     {
@@ -55,7 +57,8 @@ namespace CompanyMvc.Models
                         CurrentAdress = "Current Address",
                         PermanentAdress = "Permanent Address",
                         PINCode = "619068",
-                        Position = "Marketing Manager"
+                        Position = "Marketing Manager",
+                        SoldeDeCongé = 24
                     });
 
                 dbContext.SaveChanges();

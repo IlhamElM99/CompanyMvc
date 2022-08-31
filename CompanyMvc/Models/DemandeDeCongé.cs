@@ -7,7 +7,7 @@ namespace CompanyMvc.Models
     {
         public int Id { get; set; }
 
-        public List<Employee> Employees { get; set; }
+        public Employee Employee { get; set; }
 
         public DateTime DateDebut { get; set; }
 
@@ -20,6 +20,8 @@ namespace CompanyMvc.Models
         public int NombreJours { get; set; }
 
         public string Status { get; set; }
+
+        public Admin Validateur { get; set; }
     }
 }
  
