@@ -10,22 +10,22 @@ using CompanyMvc.Models;
 
 namespace CompanyMvc.Controllers
 {
-    public class AdminsController : Controller
+    public class DemandeDeCongéController : Controller
     {
         private readonly CompanyMvcContext _context;
 
-        public AdminsController(CompanyMvcContext context)
+        public DemandeDeCongéController(CompanyMvcContext context)
         {
             _context = context;
         }
 
-        // GET: Admins
+        // GET: DemandeDeCongé
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Admin.ToListAsync());
+            return View(await _context.DemandeDeCongé.ToListAsync());
         }
 
-        // GET: Admins/Details/5
+        // GET: DemandeDeCongé/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace CompanyMvc.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admin
-                .FirstOrDefaultAsync(m => m.IdAdmin == id);
-            if (admin == null)
+            var demandeDeCongé = await _context.DemandeDeCongé
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (demandeDeCongé == null)
             {
                 return NotFound();
             }
 
-            return View(admin);
+            return View(demandeDeCongé);
         }
 
-        // GET: Admins/Create
+        // GET: DemandeDeCongé/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admins/Create
+        // POST: DemandeDeCongé/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdAdmin,UserName,Password")] Admin admin)
+        public async Task<IActionResult> Create([Bind("Id,DateDebut,DateRetour,TypeDeCongé,Cause,NombreJours,Status")] DemandeDeCongé demandeDeCongé)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(admin);
+                _context.Add(demandeDeCongé);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(admin);
+            return View(demandeDeCongé);
         }
 
-        // GET: Admins/Edit/5
+        // GET: DemandeDeCongé/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace CompanyMvc.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admin.FindAsync(id);
-            if (admin == null)
+            var demandeDeCongé = await _context.DemandeDeCongé.FindAsync(id);
+            if (demandeDeCongé == null)
             {
                 return NotFound();
             }
-            return View(admin);
+            return View(demandeDeCongé);
         }
 
-        // POST: Admins/Edit/5
+        // POST: DemandeDeCongé/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdAdmin,UserName,Password")] Admin admin)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DateDebut,DateRetour,TypeDeCongé,Cause,NombreJours,Status")] DemandeDeCongé demandeDeCongé)
         {
-            if (id != admin.IdAdmin)
+            if (id != demandeDeCongé.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace CompanyMvc.Controllers
             {
                 try
                 {
-                    _context.Update(admin);
+                    _context.Update(demandeDeCongé);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AdminExists(admin.IdAdmin))
+                    if (!DemandeDeCongéExists(demandeDeCongé.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace CompanyMvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(admin);
+            return View(demandeDeCongé);
         }
 
-        // GET: Admins/Delete/5
+        // GET: DemandeDeCongé/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace CompanyMvc.Controllers
                 return NotFound();
             }
 
-            var admin = await _context.Admin
-                .FirstOrDefaultAsync(m => m.IdAdmin == id);
-            if (admin == null)
+            var demandeDeCongé = await _context.DemandeDeCongé
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (demandeDeCongé == null)
             {
                 return NotFound();
             }
 
-            return View(admin);
+            return View(demandeDeCongé);
         }
 
-        // POST: Admins/Delete/5
+        // POST: DemandeDeCongé/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var admin = await _context.Admin.FindAsync(id);
-            _context.Admin.Remove(admin);
+            var demandeDeCongé = await _context.DemandeDeCongé.FindAsync(id);
+            _context.DemandeDeCongé.Remove(demandeDeCongé);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AdminExists(int id)
+        private bool DemandeDeCongéExists(int id)
         {
-            return _context.Admin.Any(e => e.IdAdmin == id);
+            return _context.DemandeDeCongé.Any(e => e.Id == id);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using CompanyMvc.Models;
 
 namespace CompanyMvc.Data
 {
@@ -11,5 +12,6 @@ namespace CompanyMvc.Data
 
         public DbSet<CompanyMvc.Models.Employee> Employee { get; set; }
         public DbSet<CompanyMvc.Models.Admin> Admin { get; set; }
+        public DbSet<CompanyMvc.Models.DemandeDeCongé> DemandeDeCongé { get; set; }
     }
 }
